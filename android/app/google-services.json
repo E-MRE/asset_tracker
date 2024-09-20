@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "891545591723",
+    "project_id": "asset-tracker-b9039",
+    "storage_bucket": "asset-tracker-b9039.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891545591723:android:d4a67c89aa47f93ab93cee",
+        "android_client_info": {
+          "package_name": "com.guki.asset_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE2aco-k2QjUstzED3jh-7O_413R0tuaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891545591723:android:b6fd7590a968abe5b93cee",
+        "android_client_info": {
+          "package_name": "com.guki.asset_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE2aco-k2QjUstzED3jh-7O_413R0tuaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
