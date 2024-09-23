@@ -1,6 +1,7 @@
 import 'package:asset_tracker/presentation/screens/login/cubit/login_cubit.dart';
 import 'package:asset_tracker/presentation/screens/login/cubit/login_state.dart';
 import 'package:asset_tracker/presentation/screens/login/views/login_form_view.dart';
+import 'package:asset_tracker/presentation/screens/menu/menu_page.dart';
 import 'package:asset_tracker/utils/alert_dialog/display_alert_dialog.dart';
 import 'package:asset_tracker/utils/validators/login_validator.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,11 @@ class _LoginPageState extends State<LoginPage> {
     if (state is LoginError) {
       DisplayAlertDialog(context).errorAlert(state.message);
     } else if (state is LoginSuccess) {
-      //TODO: change page
+      _navigateMenu(context);
     }
+  }
+
+  void _navigateMenu(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MenuPage()));
   }
 }
