@@ -1,5 +1,10 @@
+import 'package:asset_tracker/presentation/screens/login/cubit/login_cubit.dart';
+import 'package:asset_tracker/presentation/screens/login/cubit/login_state.dart';
+import 'package:asset_tracker/presentation/screens/login/views/login_form_view.dart';
+import 'package:asset_tracker/utils/alert_dialog/display_alert_dialog.dart';
 import 'package:asset_tracker/utils/validators/login_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +16,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late final GlobalKey<FormState> _formKey;
   late final LoginValidator _validator;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
 
   @override
   void initState() {
@@ -26,35 +33,23 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(title: const Text('Giriş Yap')),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  autofocus: true,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) => _validator.validateEmail(value),
-                  decoration: const InputDecoration(
-                    label: Text('E-Posta'),
-                    hintText: 'E-posta adresinizi giriniz',
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  obscureText: true,
-                  maxLength: 16,
-                  validator: (value) => _validator.validatePassword(value),
-                  decoration: const InputDecoration(
-                    label: Text('Şifre'),
-                    hintText: 'Şifrenizi giriniz.',
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  child: const Text('Giriş Yap'),
-                  onPressed: () async => await _onLogin(),
-                )
-              ],
+          child: BlocProvider(
+            create: (_) => LoginCubit(),
+            child: BlocConsumer<LoginCubit, LoginState>(
+              listener: _buildListener,
+              builder: (context, state) {
+                if (state is LoginLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                return LoginFormView(
+                  formKey: _formKey,
+                  validator: _validator,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                  onLogin: () => _onLogin(context),
+                );
+              },
             ),
           ),
         ),
@@ -62,9 +57,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> _onLogin() async {
+  Future<void> _onLogin(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
+      await context.read<LoginCubit>().login(_emailController.text, _passwordController.text);
+    }
+  }
+
+  void _buildListener(BuildContext context, LoginState state) {
+    if (state is LoginError) {
+      DisplayAlertDialog(context).errorAlert(state.message);
+    } else if (state is LoginSuccess) {
+      //TODO: change page
     }
   }
 }
