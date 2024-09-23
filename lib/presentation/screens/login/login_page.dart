@@ -24,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     _formKey = GlobalKey<FormState>();
     _validator = LoginValidator();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     super.initState();
   }
 
@@ -74,6 +76,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _navigateMenu(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MenuPage()));
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const MenuPage()),
+      (route) => false,
+    );
   }
 }

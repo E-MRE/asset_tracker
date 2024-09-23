@@ -20,8 +20,9 @@ dependencies:
   #Web html tools
   html: ^0.15.4
 
-  #state
+  #state management
   flutter_bloc: ^8.1.6
+  provider: ^6.1.2
 
   #Firebase
   firebase_core: ^3.5.0

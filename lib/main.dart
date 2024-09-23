@@ -1,6 +1,9 @@
 import 'package:asset_tracker/app_start.dart';
-import 'package:asset_tracker/presentation/screens/harem_gold/harem_gold_page.dart';
+import 'package:asset_tracker/presentation/screens/splash/splash_page.dart';
+import 'package:asset_tracker/services/auth/firebase_user_notifier_manager.dart';
+import 'package:asset_tracker/services/auth/user_notifier_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   final starter = AppStart();
@@ -20,7 +23,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HaremGoldPage(),
+      home: MultiProvider(
+        providers: [ChangeNotifierProvider<UserNotifierService>(create: (_) => FirebaseUserNotifierManager())],
+        child: const SplashPage(),
+      ),
     );
   }
 }
