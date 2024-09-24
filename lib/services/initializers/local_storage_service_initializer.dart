@@ -5,6 +5,11 @@ import 'package:asset_tracker/utils/dependency/app_dependencies.dart';
 final class LocalStorageServiceInitializer extends ServiceInitializer {
   @override
   Future<void> initialize() async {
+    await kStorage.init();
+    _register();
+  }
+
+  void _register() {
     kStorage.register<UserModel>((json) => UserModel.fromJson(json));
   }
 }

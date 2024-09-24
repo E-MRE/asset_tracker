@@ -3,6 +3,7 @@ import 'package:asset_tracker/presentation/screens/login/cubit/login_state.dart'
 import 'package:asset_tracker/presentation/screens/login/views/login_form_view.dart';
 import 'package:asset_tracker/presentation/screens/menu/menu_page.dart';
 import 'package:asset_tracker/utils/alert_dialog/display_alert_dialog.dart';
+import 'package:asset_tracker/utils/dependency/app_dependencies.dart';
 import 'package:asset_tracker/utils/validators/login_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: BlocProvider(
-            create: (_) => LoginCubit(),
+            create: (_) => getDependency<LoginCubit>(),
             child: BlocConsumer<LoginCubit, LoginState>(
               listener: _buildListener,
               builder: (context, state) {
