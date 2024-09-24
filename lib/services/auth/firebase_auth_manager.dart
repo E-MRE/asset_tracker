@@ -10,7 +10,7 @@ final class FirebaseAuthManager extends AuthService {
 
   Stream<UserModel?> get authStateChanges {
     return _auth.authStateChanges().asyncMap<UserModel?>(
-          (data) async => UserModel(email: data?.email ?? '-', name: data?.displayName ?? '-'),
+          (data) async => UserModel(email: data?.email ?? '-', name: data?.displayName ?? '-', password: ''),
         );
   }
 
@@ -42,6 +42,7 @@ final class FirebaseAuthManager extends AuthService {
         data: UserModel(
           email: response.user?.email ?? '-',
           name: response.user?.displayName ?? '-',
+          password: '',
         ),
       );
     } on FirebaseAuthException catch (exception) {

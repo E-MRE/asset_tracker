@@ -12,7 +12,7 @@ final class FirebaseUserNotifierManager extends UserNotifierService {
   UserModel? _currentUser;
 
   void _onAuthStateChanged(User? event) {
-    _currentUser = UserModel(email: event?.email ?? '-', name: event?.displayName ?? '-');
+    _currentUser = UserModel(email: event?.email ?? '-', name: event?.displayName ?? '-', password: '');
     notifyListeners();
   }
 }
